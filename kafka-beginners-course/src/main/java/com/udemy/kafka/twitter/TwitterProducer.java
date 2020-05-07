@@ -30,10 +30,10 @@ import com.udemy.kafka.tutorial.ConsumerDemoWithThread.ConsumerThread;
 public class TwitterProducer {
 
 	Logger logger = LoggerFactory.getLogger(TwitterProducer.class.getName());
-	String consumerKey = "RCzZwMT4aIZCpuwgKGlyysfsQ";
-	String consumerSecret = "G7ZRKKqtjCfSds32fhsOTgkvDDJ8U1E1PXqahcNcudPgIqcFS6";
-	String token = "2757967215-lsqXRaCWiYwQYFOes2ZZS5qi2PjB3H5EZc4GuPR";
-	String secret = "hU9X7sawkp1AXtz8ZNPG9BdfCRcklC5gZL5k90jzozOoz";
+	String consumerKey = "cyg6b8WrUUmARz8klTyUydeRE";
+	String consumerSecret = "GLgxtBfb6q8iPio1j4RGHlFsUWZ1OIfR56tk1tUtAPgQrTulWX";
+	String token = "2757967215-DCLPfABZFJsMDUaEd0s5MgpPcdwmDnbaH57rB3v";
+	String secret = "mYN5KOAyR8PxSud97cYpfbwahWpIfdfIGio1iol2iwClW";
 
 	public TwitterProducer() {
 	}
@@ -123,7 +123,7 @@ public class TwitterProducer {
 		Hosts hosebirdHosts = new HttpHosts(Constants.STREAM_HOST);
 		StatusesFilterEndpoint hosebirdEndpoint = new StatusesFilterEndpoint();
 		// Optional: set up some followings and track terms
-		List<String> terms = Lists.newArrayList("bitcoin");
+		List<String> terms = Lists.newArrayList("kafka");
 		hosebirdEndpoint.trackTerms(terms);
 
 		// These secrets should be read from a config file
