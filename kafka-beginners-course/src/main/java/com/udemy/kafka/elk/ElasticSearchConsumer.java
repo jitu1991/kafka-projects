@@ -26,6 +26,8 @@ import org.elasticsearch.common.xcontent.XContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.JsonParser;
+
 public class ElasticSearchConsumer {
 
 	public static KafkaConsumer<String, String> createConsumer(String topic) {
@@ -55,6 +57,13 @@ public class ElasticSearchConsumer {
 			ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofMillis(100));//new in kafka 2.0.0
 			
 			for(ConsumerRecord<String, String> record : consumerRecords) {
+				//2 Strategies for key - Idempotence
+				//kafka generic ID
+				//String id = record.topic() + record.partition() + record.offset();
+				
+				//Feed specific id
+				//String id = extractId(record.value());
+				
 				String jsonString = record.value();
 				
 				IndexRequest indexRequest = new IndexRequest("twitter", "tweets").source(jsonString, XContentType.JSON);
@@ -69,6 +78,11 @@ public class ElasticSearchConsumer {
 				client.close();
 			}
 		}
+	}
+
+	private static JsonParser jsonParser = new JsonParser();
+	private static String extractId(String json) {
+		return jsonParser.parse(json).getAsJsonObject().get("id_str").getAsString();
 	}
 
 	public static RestHighLevelClient createClient() {
